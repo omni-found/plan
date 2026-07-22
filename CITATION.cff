@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this benchmark, please cite it as below."
+type: software
+title: "omni-found"
+authors:
+  - family-names: "Robinson"
+    given-names: "Mark"
+    email: "mark.robinson@mls.uzh.ch"
+version: "0.1.0"
+date-released: "2026-07-22"
+url: "https://github.com/CHANGE_ME/omni-found"
+abstract: "This is a Omnibenchmark implementation of the found paper benchmark"
+license: MIT
+keywords:
+  - benchmark
+  - bioinformatics
+  - omnibenchmark
