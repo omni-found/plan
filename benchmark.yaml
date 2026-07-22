@@ -21,12 +21,10 @@ software_environments:
 # Stages and modules for your benchmark
 
 stages:
-  - id: datasets
+  - id: DATA
     outputs:
-        - id: data.matrix
-          path: "{dataset}.data.gz"
-        - id: data.true_labels
-          path: "{dataset}.gz"
+        - id: data_ad
+          path: "{dataset}_rawdata.h5ad"
     modules:
       - id: dataset_loader
         name: "loads the benchmark datasets"
@@ -38,18 +36,15 @@ stages:
             # A single parameter dict
             - param1: "value"
               param2: "other_value"
-
             # A combinatorial grid expansion
             - param1: "value"
               param2: ["1", "2", "3"]
-
-  - id: methods
+  - id: EMB
     inputs:
-        - data.matrix
-        - data.true_labels
+        - data_ad
     outputs:
-      - id: clustering.predicted
-        path: "{dataset}_predicted.labels.gz"
+      - id: embedding_tsv
+        path: "{dataset}_embedding.tsv"
     modules:
       - id: cool_method_1
         name: "the only method you will ever need"
@@ -59,14 +54,12 @@ stages:
           commit: deadbeef
         parameters:
           - param1: "value"
-
-  - id: metrics
+  - id: REG
     inputs:
-        - clustering.predicted
-        - data.true_labels
+        - embedding_tsv
     outputs:
-      - id: metrics.scores
-        path: "{dataset}.scores.gz"
+      - id: cellwise_scores
+        path: "{dataset}_scores.tsv"
     modules:
       - id: strict_metric_1
         name: "a very well defined metric"
@@ -76,3 +69,34 @@ stages:
           commit: c0ffee
         parameters:
           - foo: "bar"
+  - id: BIN
+    inputs:
+        - cellwise_scores
+    outputs:
+      - id: cellwise_binarizations
+        path: "{dataset}_binarization.tsv"
+    modules:
+      - id: strict_metric_1
+        name: "a very well defined metric"
+        software_environment: "apptainer_env"
+        repository:
+          url: https://github.com/CHANGEME/the_right_metric
+          commit: c0ffee
+        parameters:
+
+  - id: MET
+    inputs:
+        - data_ad
+        - cellwise_scores
+        - cellwise_binarizations
+    outputs:
+      - id: metrics_json
+        path: "{dataset}_metrics.json"
+    modules:
+      - id: strict_metric_1
+        name: "a very well defined metric"
+        software_environment: "apptainer_env"
+        repository:
+          url: https://github.com/CHANGEME/the_right_metric
+          commit: c0ffee
+        parameters:
