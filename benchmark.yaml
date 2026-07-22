@@ -8,7 +8,7 @@ version: "0.1.0"
 
 # The default software environment for this benchmark.
 # One of: apptainer, conda, envmodules.
-software_backend: "apptainer"
+software_backend: "apptainer" # maybe conda
 
 # Available software environments
 
@@ -30,8 +30,9 @@ stages:
         name: "loads the benchmark datasets"
         software_environment: "apptainer_env"
         repository:
-          url: https://github.com/CHANGEME/data_loader
-          commit: 366c5a2
+          url: https://github.com/omni-found/found-engine
+          commit: main
+          entrypoint: download
         parameters:
             # A single parameter dict
             - param1: "value"
@@ -39,6 +40,7 @@ stages:
             # A combinatorial grid expansion
             - param1: "value"
               param2: ["1", "2", "3"]
+
   - id: EMB
     inputs:
         - data_ad
@@ -47,13 +49,15 @@ stages:
         path: "{dataset}_embedding.tsv"
     modules:
       - id: embed
-        name: "the only method you will ever need"
+        name: "compute the embedding"
         software_environment: "apptainer_env"
         repository:
-          url: https://github.com/CHANGEME/my_method
-          commit: deadbeef
+          url: https://github.com/omni-found/found-engine
+          commit: main
+          entrypoint: embed
         parameters:
           - param1: "value"
+
   - id: REG
     inputs:
         - embedding_tsv
@@ -62,13 +66,14 @@ stages:
         path: "{dataset}_scores.tsv"
     modules:
       - id: regress
-        name: "a very well defined metric"
+        name: "do the regression to get cell-level scores"
         software_environment: "apptainer_env"
         repository:
-          url: https://github.com/CHANGEME/the_right_metric
-          commit: c0ffee
+          url: https://github.com/omni-found/found-engine
+          commit: main
         parameters:
           - foo: "bar"
+
   - id: BIN
     inputs:
         - cellwise_scores
@@ -77,11 +82,11 @@ stages:
         path: "{dataset}_binarization.tsv"
     modules:
       - id: binarize 
-        name: "a very well defined metric"
+        name: "binarize the cell-level scores"
         software_environment: "apptainer_env"
         repository:
-          url: https://github.com/CHANGEME/the_right_metric
-          commit: c0ffee
+          url: https://github.com/omni-found/found-engine
+          commit: main
         parameters:
 
   - id: MET
@@ -94,9 +99,9 @@ stages:
         path: "{dataset}_metrics.json"
     modules:
       - id: evaluate
-        name: "a very well defined metric"
+        name: "evaluate performance"
         software_environment: "apptainer_env"
         repository:
-          url: https://github.com/CHANGEME/the_right_metric
-          commit: c0ffee
+          url: https://github.com/omni-found/found-engine
+          commit: main
         parameters:
