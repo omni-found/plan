@@ -26,7 +26,7 @@ stages:
         - id: data_ad
           path: "{dataset}_rawdata.h5ad"
     modules:
-      - id: dataset_loader
+      - id: download
         name: "loads the benchmark datasets"
         software_environment: "apptainer_env"
         repository:
@@ -46,7 +46,7 @@ stages:
       - id: embedding_tsv
         path: "{dataset}_embedding.tsv"
     modules:
-      - id: cool_method_1
+      - id: embed
         name: "the only method you will ever need"
         software_environment: "apptainer_env"
         repository:
@@ -61,7 +61,7 @@ stages:
       - id: cellwise_scores
         path: "{dataset}_scores.tsv"
     modules:
-      - id: strict_metric_1
+      - id: regress
         name: "a very well defined metric"
         software_environment: "apptainer_env"
         repository:
@@ -76,7 +76,7 @@ stages:
       - id: cellwise_binarizations
         path: "{dataset}_binarization.tsv"
     modules:
-      - id: strict_metric_1
+      - id: binarize 
         name: "a very well defined metric"
         software_environment: "apptainer_env"
         repository:
@@ -93,7 +93,7 @@ stages:
       - id: metrics_json
         path: "{dataset}_metrics.json"
     modules:
-      - id: strict_metric_1
+      - id: evaluate
         name: "a very well defined metric"
         software_environment: "apptainer_env"
         repository:
