@@ -12,9 +12,9 @@ software_backend: "conda" # maybe conda
 # Available software environments
 
 software_environments:
-    found:
-        name: a conda env of found and the things it needs
-        apptainer: envs/found.yaml
+  found:
+    name: a conda env of found and the things it needs
+    conda : envs/found.yaml
 
 # Stages and modules for your benchmark
 
