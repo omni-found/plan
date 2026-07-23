@@ -7,16 +7,14 @@ benchmarker: "Mark Robinson <mark.robinson@mls.uzh.ch>"
 version: "0.1.0"
 
 # The default software environment for this benchmark.
-# One of: apptainer, conda, envmodules.
-software_backend: "apptainer" # maybe conda
+software_backend: "conda" # maybe conda
 
 # Available software environments
 
 software_environments:
-    apptainer_env:
-        name: nicely packaged environment
-        description: A more verbose description, for humans reading this
-        apptainer: envs/example.sif
+    found:
+        name: a conda env of found and the things it needs
+        apptainer: envs/found.yaml
 
 # Stages and modules for your benchmark
 
@@ -28,18 +26,13 @@ stages:
     modules:
       - id: download
         name: "loads the benchmark datasets"
-        software_environment: "apptainer_env"
+        software_environment: found
         repository:
           url: https://github.com/omni-found/found-engine
           commit: main
           entrypoint: download
         parameters:
-            # A single parameter dict
-            - param1: "value"
-              param2: "other_value"
-            # A combinatorial grid expansion
-            - param1: "value"
-              param2: ["1", "2", "3"]
+            - dataset: "jakel"
 
   - id: EMB
     inputs:
@@ -50,7 +43,7 @@ stages:
     modules:
       - id: embed
         name: "compute the embedding"
-        software_environment: "apptainer_env"
+        software_environment: found
         repository:
           url: https://github.com/omni-found/found-engine
           commit: main
@@ -67,7 +60,7 @@ stages:
     modules:
       - id: regress
         name: "do the regression to get cell-level scores"
-        software_environment: "apptainer_env"
+        software_environment: found
         repository:
           url: https://github.com/omni-found/found-engine
           commit: main
@@ -83,7 +76,7 @@ stages:
     modules:
       - id: binarize 
         name: "binarize the cell-level scores"
-        software_environment: "apptainer_env"
+        software_environment: found
         repository:
           url: https://github.com/omni-found/found-engine
           commit: main
@@ -100,7 +93,7 @@ stages:
     modules:
       - id: evaluate
         name: "evaluate performance"
-        software_environment: "apptainer_env"
+        software_environment: found
         repository:
           url: https://github.com/omni-found/found-engine
           commit: main
