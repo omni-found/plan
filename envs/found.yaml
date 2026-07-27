@@ -363,7 +363,7 @@ dependencies:
       - anywidget==0.11.0
       - arro3-core==0.8.1
       - cappa==0.32.1
-      - found==0.1.0
+      - git+ssh://git@github.com/goeva-lab/found
       - mercantile==1.2.1
       - psygnal==0.15.1
       - pyarrow==25.0.0

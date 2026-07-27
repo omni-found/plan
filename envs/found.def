@@ -1,2 +1,21 @@
 Bootstrap: docker
-From: ghcr.io/goeva-lab/found:sha-d189adcedbdef3ba5d6ee67a5526859f9f8e3544
+From: ghcr.io/goeva-lab/found:latest
+
+%post
+apt -y update &&  \
+  apt install -y \
+  'build-essential' 'r-base-dev' 'curl' && \
+  rm -rf /var/lib/apt/lists/*
+
+curl -LsSf https://astral.sh/uv/install.sh | sh && \
+  . $HOME/.local/bin/env
+
+. /workdir/found/.venv/bin/activate && uv pip install boto3 rpy2 scvi-tools memray glmpca pylemur stream-unzip
+#. /workdir/found/.venv/bin/activate && uv pip install -p 'cappa' 'scvi-tools' 'memray' 'glmpca' 'pylemur' 'boto3' 'stream-unzip'
+Rscript -e 'install.packages(c("harmony"))'
+
+
+%runscript
+cd '/workdir/found'
+exec '/bin/bash' -c "$@"
+
