@@ -15,7 +15,8 @@ software_backend: "conda"
 software_environments:
   found:
     name: a conda env of found and the things it needs
-    conda : envs/found.yaml
+    conda : envs/found-trimmed.yaml
+    #conda : envs/found.yaml
 #  found:
 #    name: a conda env of found and the things it needs
 #    apptainer: envs/found.sif
@@ -33,7 +34,8 @@ stages:
         software_environment: found
         repository:
           #url: https://github.com/omni-found/found-engine
-          url: /data/mark/omb/found/found-engine
+          #url: /data/mark/omb/found/found-engine
+          url: /Users/mark/projects/omb/found/found-engine
           commit: main
           entrypoint: download
         parameters:
@@ -51,7 +53,8 @@ stages:
         software_environment: found
         repository:
           #url: https://github.com/omni-found/found-engine
-          url: /data/mark/omb/found/found-engine
+          #url: /data/mark/omb/found/found-engine
+          url: /Users/mark/projects/omb/found/found-engine
           commit: main
           entrypoint: embed
         parameters:
@@ -60,30 +63,30 @@ stages:
 
   - id: REG
     inputs:
+        - data_ad
         - embedding_tsv
     outputs:
-      - id: phats_tsv
+      - id: phat_tsv
         path: "{dataset}_phat.tsv"
-      - id: regparams_json
-        path: "{dataset}_regparams.json"
     modules:
       - id: regress
         name: "do the regression to get cell-level scores (phat)"
         software_environment: found
         repository:
-          url: https://github.com/omni-found/found-engine
+          #url: https://github.com/omni-found/found-engine
+          url: /Users/mark/projects/omb/found/found-engine
           commit: main
           entrypoint: regress
         parameters:
-          - foo: "bar"
+          - regress_method: "logit_lbfgs_nol1"
 
   - id: BIN
     inputs:
         - data_ad
         - embedding_tsv
-        - phats_tsv
+        - phat_tsv
     outputs:
-      - id: binarizations_tsv
+      - id: bin_tsv
         path: "{dataset}_binarization.tsv"
     modules:
       - id: binarize 
@@ -94,22 +97,23 @@ stages:
           commit: main
           entrypoint: binarize
         parameters:
+          - binarize_method: "kmeans"
 
-  - id: MET
-    inputs:
-        - data_ad
-        - embedding_tsv
-        - phats_tsv
-        - binarizations_tsv
-    outputs:
-      - id: metrics_json
-        path: "{dataset}_metrics.json"
-    modules:
-      - id: evaluate
-        name: "evaluate performance"
-        software_environment: found
-        repository:
-          url: https://github.com/omni-found/found-engine
-          commit: main
-          entrypoint: evaluate
-        parameters:
+#  - id: MET
+#    inputs:
+#        - data_ad
+#        - embedding_tsv
+#        - phat_tsv
+#        - bin_tsv
+#    outputs:
+#      - id: metrics_json
+#        path: "{dataset}_metrics.json"
+#    modules:
+#      - id: evaluate
+#        name: "evaluate performance"
+#        software_environment: found
+#        repository:
+#          url: https://github.com/omni-found/found-engine
+#          commit: main
+#          entrypoint: evaluate
+#        parameters:

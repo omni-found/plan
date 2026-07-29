@@ -21,6 +21,7 @@ dependencies:
   - boto3
   - botocore
   - bzip2
+  - pip
   - cpython
   - curl
   - h5py
@@ -81,7 +82,9 @@ dependencies:
       - cappa
       - git+ssh://git@github.com/goeva-lab/found
       - mercantile
+      - memray
       - psygnal
+      - stream-unzip
       - pyarrow
       - type-lens
       - vegafusion
