@@ -8,10 +8,27 @@ authors:
     email: "mark.robinson@mls.uzh.ch"
 version: "0.1.0"
 date-released: "2026-07-22"
-url: "https://github.com/CHANGE_ME/omni-found"
+url: "https://github.com/omni-found/plan"
 abstract: "This is a Omnibenchmark implementation of the found paper benchmark"
 license: MIT
 keywords:
   - benchmark
   - bioinformatics
   - omnibenchmark
+  - found
+  - HiDDEN
+references:
+  - type: article
+    status: preprint
+    authors:
+      - family-names: Afanasiev
+        given-names: Elia
+      - family-names: Goeva
+        given-names: Aleksandrina
+        orcid: "https://orcid.org/0000-0001-9425-6573"
+    title: "found: Inferring cell-level perturbation from structured label noise in single-cell data"
+    repository-code: 
+      - "https://github.com/goeva-lab/afanasiev-2026-found_lib"
+      - "https://github.com/goeva-lab/found"
+    doi: 10.64898/2026.04.10.717768
+
