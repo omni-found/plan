@@ -40,6 +40,7 @@ stages:
           entrypoint: download
         parameters:
             - dataset_name: "jakel"
+              group: ["all", "Astrocytes"]
 
   - id: EMB
     inputs:
@@ -52,10 +53,9 @@ stages:
         name: "compute the embedding"
         software_environment: found
         repository:
-          #url: https://github.com/omni-found/found-engine
-          #url: /data/mark/omb/found/found-engine
-          url: /Users/mark/projects/omb/found/found-engine
-          commit: main
+          #url: /Users/mark/projects/omb/found/found-engine
+          url: https://github.com/omni-found/found-engine
+          commit: d47d10c
           entrypoint: embed
         parameters:
           - embed_method: "log_pca"
@@ -73,9 +73,9 @@ stages:
         name: "do the regression to get cell-level scores (phat)"
         software_environment: found
         repository:
-          #url: https://github.com/omni-found/found-engine
-          url: /Users/mark/projects/omb/found/found-engine
-          commit: main
+          #url: /Users/mark/projects/omb/found/found-engine
+          url: https://github.com/omni-found/found-engine
+          commit: d47d10c
           entrypoint: regress
         parameters:
           - regress_method: "logit_lbfgs_nol1"
@@ -93,8 +93,9 @@ stages:
         name: "binarize the cell-level scores"
         software_environment: found
         repository:
+          #url: /Users/mark/projects/omb/found/found-engine
           url: https://github.com/omni-found/found-engine
-          commit: main
+          commit: d47d10c
           entrypoint: binarize
         parameters:
           - binarize_method: "kmeans"
