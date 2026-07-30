@@ -37,7 +37,7 @@ stages:
         repository:
           #url: /Users/mark/projects/omb/found/found-engine
           url: https://github.com/omni-found/found-engine
-          commit: main
+          commit: 15b076a
           entrypoint: download
         parameters:
             - dataset_name: "jakel"
@@ -54,9 +54,9 @@ stages:
         name: "compute the embedding"
         software_environment: found
         repository:
-          url: /Users/mark/projects/omb/found/found-engine
-          #url: https://github.com/omni-found/found-engine
-          commit: d47d10c
+          #url: /Users/mark/projects/omb/found/found-engine
+          url: https://github.com/omni-found/found-engine
+          commit: 15b076a
           entrypoint: embed
         parameters:
           - embed_method: "log_pca"
@@ -74,9 +74,9 @@ stages:
         name: "do the regression to get cell-level scores (phat)"
         software_environment: found
         repository:
-          url: /Users/mark/projects/omb/found/found-engine
-          #url: https://github.com/omni-found/found-engine
-          commit: d47d10c
+          #url: /Users/mark/projects/omb/found/found-engine
+          url: https://github.com/omni-found/found-engine
+          commit: 15b076a
           entrypoint: regress
         parameters:
           - regress_method: "logit_lbfgs_nol1"
@@ -96,7 +96,7 @@ stages:
         repository:
           #url: /Users/mark/projects/omb/found/found-engine
           url: https://github.com/omni-found/found-engine
-          commit: d47d10c
+          commit: 15b076a
           entrypoint: binarize
         parameters:
           - binarize_method: "kmeans"

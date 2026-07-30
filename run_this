@@ -1,3 +1,4 @@
 # make symlinks for Elia's cache
 mkdir -p out/.found-cache/data
 ob run benchmark.yaml --unpinned --cores 6 --dirty
+ob run benchmark.yaml --cores 6
