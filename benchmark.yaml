@@ -32,15 +32,16 @@ stages:
       - id: d
         name: "loads the benchmark datasets"
         software_environment: found
+        resources:
+          cores: 1
         repository:
-          #url: https://github.com/omni-found/found-engine
-          #url: /data/mark/omb/found/found-engine
-          url: /Users/mark/projects/omb/found/found-engine
+          #url: /Users/mark/projects/omb/found/found-engine
+          url: https://github.com/omni-found/found-engine
           commit: main
           entrypoint: download
         parameters:
             - dataset_name: "jakel"
-              group: ["all", "Astrocytes"]
+              subset: ["all", "Astrocytes"]
 
   - id: EMB
     inputs:
@@ -53,8 +54,8 @@ stages:
         name: "compute the embedding"
         software_environment: found
         repository:
-          #url: /Users/mark/projects/omb/found/found-engine
-          url: https://github.com/omni-found/found-engine
+          url: /Users/mark/projects/omb/found/found-engine
+          #url: https://github.com/omni-found/found-engine
           commit: d47d10c
           entrypoint: embed
         parameters:
@@ -73,8 +74,8 @@ stages:
         name: "do the regression to get cell-level scores (phat)"
         software_environment: found
         repository:
-          #url: /Users/mark/projects/omb/found/found-engine
-          url: https://github.com/omni-found/found-engine
+          url: /Users/mark/projects/omb/found/found-engine
+          #url: https://github.com/omni-found/found-engine
           commit: d47d10c
           entrypoint: regress
         parameters:
