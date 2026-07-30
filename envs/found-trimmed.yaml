@@ -30,8 +30,8 @@ dependencies:
   - jq
   - numpy
   - openssl
-  - pandas
-  #- pandas=2.3.3
+  #- pandas
+  - pandas=2.3.3
   - python=3.12.13
   - python-dateutil
   - python-dotenv
