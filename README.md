@@ -21,10 +21,7 @@ This project is licensed under the MIT License.
    pip install omnibenchmark
    ```
 
-2. Run the benchmark:
-   ```bash
-   ob run benchmark.yaml
-   ```
+2. Run the benchmark: see `run_this`
 
 ## Citation
 
